@@ -21,8 +21,8 @@ function App() {
   const nameChangeHandler = (event) => {
     console.log('was clicked')
     setPersons([
-      {name: event.target.value, age: 2},
-      {name: "Manu", age: 3},
+      {name: 'Max', age: 2},
+      {name: event.target.value, age: 3},
       {name: 'JessiE', age: 4},
     ])
   }
@@ -30,8 +30,8 @@ function App() {
     <div className="App">
       <h1>Hi, I'm a React App</h1>
       <button onClick={() => switchNameHandler('xxxxxxx')}>Switch Name</button>
-      <Person name={persons[0].name}/>
-      <Person name={persons[1].name} click={switchNameHandler} change={nameChangeHandler}>My gender: Girl</Person>
+      <Person name={persons[0].name} click={() => switchNameHandler('test')} />
+      <Person name={persons[1].name} change={nameChangeHandler}>My gender: Girl</Person>
       <Person name='Ronnie'/>
     </div>
   );
