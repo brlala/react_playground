@@ -8,6 +8,13 @@ function App() {
     {name: 'Manu', age: 30},
     {name: 'Jessie', age: 41},
   ]);
+  const style = {
+    backgroundColor: 'white',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    cursor: 'pointer',
+  }
 
   const switchNameHandler = (newName) => {
     console.log('was clicked')
@@ -29,7 +36,9 @@ function App() {
   return (
     <div className="App">
       <h1>Hi, I'm a React App</h1>
-      <button onClick={() => switchNameHandler('xxxxxxx')}>Switch Name</button>
+      <button
+        style={style}
+        onClick={() => switchNameHandler('xxxxxxx')}>Switch Name</button>
       <Person name={persons[0].name} click={() => switchNameHandler('test')} />
       <Person name={persons[1].name} change={nameChangeHandler}>My gender: Girl</Person>
       <Person name='Ronnie'/>
