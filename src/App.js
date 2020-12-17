@@ -39,6 +39,17 @@ function App() {
     setShowPerson(!showPerson);
   };
 
+  let personsPanel;
+  if (showPerson) {
+    personsPanel = (
+      <div>
+        <Person name={persons[0].name} click={() => switchNameHandler('test')} />
+        <Person name={persons[1].name} change={nameChangeHandler}>My gender: Girl</Person>
+        <Person name="Ronnie" />
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <h1>Hi, I'm a React App</h1>
@@ -47,13 +58,16 @@ function App() {
         style={style}
         onClick={togglePersonsHandler}
       >
+        Toggle Name
+      </button>
+      <button
+        type="button"
+        style={style}
+        onClick={() => switchNameHandler('xxxxxxx')}
+      >
         Switch Name
       </button>
-      <div>
-        <Person name={persons[0].name} click={() => switchNameHandler('test')} />
-        <Person name={persons[1].name} change={nameChangeHandler}>My gender: Girl</Person>
-        <Person name="Ronnie" />
-      </div>
+      {personsPanel}
     </div>
   );
 }
