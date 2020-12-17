@@ -2,8 +2,9 @@ env:
   browser: true
   es2021: true
 extends:
-  - 'plugin:react/recommended'
   - airbnb
+  - plugin:prettier/recommended
+  - prettier/react
 parserOptions:
   ecmaFeatures:
     jsx: true
@@ -30,5 +31,12 @@ rules:
     - selector: CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]
       message: Unexpected property on console object was called
   max-len:
-    - error
+    - warn
     - code: 120
+  jsx-a11y/click-events-have-key-events: off
+  jsx-a11y/no-noninteractive-element-interactions: # optionally should be removed, click events should be obvious
+    - off
+  no-unused-vars: # optionally should be removed, to enforce clean code
+    - warn
+  react/jsx-one-expression-per-line: off # optionally should be removed, could mess with text display
+
