@@ -43,6 +43,7 @@ function App() {
   if (showPerson) {
     personsPanel = (
       <div>
+        {persons.map((person) => <Person name={person.name} />)}
         <Person name={persons[0].name} click={() => switchNameHandler('test')} />
         <Person name={persons[1].name} change={nameChangeHandler}>My gender: Girl</Person>
         <Person name="Ronnie" />
