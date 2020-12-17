@@ -11,17 +11,24 @@ parserOptions:
   sourceType: module
 plugins:
   - react
-rules: {
-  "react/jsx-uses-react": "off",
-  "react/react-in-jsx-scope": "off",
-  "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-  "react/no-unescaped-entities": ["error", {forbid: [">", "}" ],},],
-  "no-console": "off",
-  "no-restricted-syntax": [
-      "error",
-    {
-      "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
-      "message": "Unexpected property on console object was called"
-    }
-  ]
-}
+rules:
+  react/jsx-uses-react: off
+  react/react-in-jsx-scope: off
+  react/jsx-filename-extension:
+    - 1
+    - extensions:
+        - .js
+        - .jsx
+  react/no-unescaped-entities:
+    - error
+    - forbid:
+        - ">"
+        - "}"
+  no-console: off
+  no-restricted-syntax:
+    - error
+    - selector: CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]
+      message: Unexpected property on console object was called
+  max-len:
+    - error
+    - code: 120

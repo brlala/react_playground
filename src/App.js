@@ -26,6 +26,11 @@ function App() {
     ]);
   };
 
+  const deletePersonHandler = (index) => {
+    console.log('delete person');
+    setPersons(persons.splice(index, 1));
+  };
+
   const nameChangeHandler = (event) => {
     console.log('was clicked');
     setPersons([
@@ -43,7 +48,7 @@ function App() {
   if (showPerson) {
     personsPanel = (
       <div>
-        {persons.map((person) => <Person name={person.name} />)}
+        {persons.map((person, index) => <Person name={person.name} click={() => deletePersonHandler(index)} />)}
         <Person name={persons[0].name} click={() => switchNameHandler('test')} />
         <Person name={persons[1].name} change={nameChangeHandler}>My gender: Girl</Person>
         <Person name="Ronnie" />
