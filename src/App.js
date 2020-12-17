@@ -10,7 +10,8 @@ function App() {
   ]);
   const [showPerson, setShowPerson] = useState(false);
   const style = {
-    backgroundColor: "white",
+    backgroundColor: "green",
+    color: "white",
     font: "inherit",
     border: "1px solid blue",
     padding: "8px",
@@ -63,11 +64,19 @@ function App() {
         {/* <Person name={persons[2].name} change={nameChangeHandler}>My gender: Girl</Person> */}
       </div>
     );
+    style.backgroundColor = "red";
   }
-
+  const classes = [];
+  if (persons.length <= 2) {
+    classes.push("red");
+  }
+  if (persons.length <= 1) {
+    classes.push("bold");
+  }
   return (
     <div className="App">
       <h1>Hi, I'm a React App</h1>
+      <p className={classes.join(" ")}>This is working</p>
       <button type="button" style={style} onClick={togglePersonsHandler}>
         Toggle Name
       </button>
