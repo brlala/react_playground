@@ -1,7 +1,21 @@
 import './App.css';
 import { useState } from 'react';
-import Radium, { StyleRoot } from 'radium';
+import styled from 'styled-components';
 import Person from './Person/Person';
+
+const StyledButton = styled.button`
+  background-color: ${(props) => (props.alt ? 'red' : 'green')};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => (props.alt ? 'salmon' : 'lightgreen')};
+    color: black;
+  }
+`;
 
 function App(border = '1px solid blue') {
   const [persons, setPersons] = useState([
@@ -69,11 +83,11 @@ function App(border = '1px solid blue') {
         {/* <Person name={persons[2].name} change={nameChangeHandler}>My gender: Girl</Person> */}
       </div>
     );
-    style.backgroundColor = 'red';
-    style[':hover'] = {
-      backgroundColor: 'salmon',
-      color: 'black',
-    };
+    // style.backgroundColor = 'red';
+    // style[':hover'] = {
+    //   backgroundColor: 'salmon',
+    //   color: 'black',
+    // };
   }
   const classes = [];
   if (persons.length <= 2) {
@@ -83,29 +97,29 @@ function App(border = '1px solid blue') {
     classes.push('bold');
   }
   return (
-    <StyleRoot>
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is working</p>
-        <button
-          key="asd"
-          type="button"
-          style={style}
-          onClick={togglePersonsHandler}
-        >
-          Toggle Name
-        </button>
-        <button
-          type="button"
-          style={style}
-          onClick={() => switchNameHandler('xxxxxxx')}
-        >
-          Switch Name
-        </button>
-        {personsPanel}
-      </div>
-    </StyleRoot>
+    <div className="App">
+      <h1>Hi, I'm a React App</h1>
+      <p className={classes.join(' ')}>This is working</p>
+      <StyledButton
+        key="asd"
+        type="button"
+        // style={style}
+        alt={showPerson}
+        onClick={togglePersonsHandler}
+      >
+        Toggle Name
+      </StyledButton>
+      <StyledButton
+        type="button"
+        // style={style}
+        alt={showPerson}
+        onClick={() => switchNameHandler('xxxxxxx')}
+      >
+        Switch Name
+      </StyledButton>
+      {personsPanel}
+    </div>
   );
 }
 
-export default Radium(App);
+export default App;
