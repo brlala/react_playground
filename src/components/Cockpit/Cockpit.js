@@ -1,42 +1,65 @@
-import styles from './Cockpit.module.css';
+import { useEffect, useRef, useContext } from 'react';
 
-const cockpit = (props) => {
+import classes from './Cockpit.module.css';
+import AuthContext from '../../context/auth-context';
+
+const Cockpit = ({ showPersons, personsLength, title, clicked }) => {
+  const toggleBtnRef = useRef(null);
+  const authContext = useContext(AuthContext);
+
+  console.log(authContext.authenticated);
+
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    // Http request...
+    // setTimeout(() => {
+    //   alert('Saved data to cloud!');
+    // }, 1000);
+    toggleBtnRef.current.click();
+    return () => {
+      console.log('[Cockpit.js] cleanup work in useEffect');
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+    };
+  });
+
+  // useEffect();
+
   const assignedClasses = [];
   let btnClass = '';
-  if (props.showPerson) {
-    console.log(styles);
-    btnClass = styles.Red;
+  if (showPersons) {
+    btnClass = classes.Red;
   }
 
-  if (props.persons.length <= 2) {
-    assignedClasses.push(styles.red);
+  if (personsLength <= 2) {
+    assignedClasses.push(classes.red); // classes = ['red']
   }
-  if (props.persons.length <= 1) {
-    assignedClasses.push(styles.bold);
+  if (personsLength <= 1) {
+    assignedClasses.push(classes.bold); // classes = ['red', 'bold']
   }
+
   return (
-    <div className={styles.Cockpit}>
-      <h1>Hi, I'm a React App</h1>
-      <p className={assignedClasses.join(' ')}>This is working</p>
+    <div className={classes.Cockpit}>
+      <h1>{title}</h1>
+      <p className={assignedClasses.join(' ')}>This is really working!</p>
       <button
-        key="asd"
         type="button"
-        // style={style}
-        onClick={props.toggle}
+        ref={toggleBtnRef}
         className={btnClass}
+        onClick={clicked}
       >
-        Toggle Name
+        Toggle Persons
       </button>
-      <button
-        type="button"
-        // style={style}
-        onClick={() => props.click('xxxxxxx')}
-        className={btnClass}
-      >
-        Switch Name
+      <button type="button" onClick={authContext.login}>
+        Log in
       </button>
     </div>
   );
 };
 
-export default cockpit;
+export default React.memo(Cockpit);
