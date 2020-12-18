@@ -1,7 +1,8 @@
 // import './App.module.css';
 import { useState } from 'react';
 import styles from './App.module.css';
-import Person from '../components/Persons/Person/Person';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 function App() {
   const [persons, setPersons] = useState([
@@ -39,54 +40,30 @@ function App() {
 
   const togglePersonsHandler = () => {
     setShowPerson(!showPerson);
+    console.log('changed to ', showPerson);
   };
 
   let personsPanel;
-  let btnClass = '';
   if (showPerson) {
     personsPanel = (
       <div>
-        {persons.map((person, index) => (
-          <Person
-            key={person.id}
-            name={person.name}
-            click={() => deletePersonHandler(index)}
-            change={(event) => nameChangeHandler(event, person.id)}
-          />
-        ))}
+        <Persons
+          persons={persons}
+          clicked={deletePersonHandler}
+          changed={nameChangeHandler}
+        />
       </div>
     );
+  }
 
-    btnClass = styles.Red;
-  }
-  const assignedClasses = [];
-  if (persons.length <= 2) {
-    assignedClasses.push(styles.red);
-  }
-  if (persons.length <= 1) {
-    assignedClasses.push(styles.bold);
-  }
   return (
     <div className={styles.App}>
-      <h1>Hi, I'm a React App</h1>
-      <p className={assignedClasses.join(' ')}>This is working</p>
-      <button
-        key="asd"
-        type="button"
-        // style={style}
-        onClick={togglePersonsHandler}
-        className={btnClass}
-      >
-        Toggle Name
-      </button>
-      <button
-        type="button"
-        // style={style}
-        onClick={() => switchNameHandler('xxxxxxx')}
-        className={btnClass}
-      >
-        Switch Name
-      </button>
+      <Cockpit
+        persons={persons}
+        toggle={togglePersonsHandler}
+        click={switchNameHandler}
+        showPerson={showPerson}
+      />
       {personsPanel}
     </div>
   );
