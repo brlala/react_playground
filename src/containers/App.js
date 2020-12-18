@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styles from './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import AuthContext from '../context/auth-context';
 
 function App() {
   const [persons, setPersons] = useState([
@@ -11,6 +12,7 @@ function App() {
     { id: 'af3', name: 'Jessie', age: 41 },
   ]);
   const [showPerson, setShowPerson] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
 
   const switchNameHandler = (newName) => {
     console.log('was clicked');
@@ -40,7 +42,11 @@ function App() {
 
   const togglePersonsHandler = () => {
     setShowPerson(!showPerson);
-    console.log('changed to ', showPerson);
+    console.log('toggled to ', showPerson);
+  };
+
+  const toggleLoginHandler = () => {
+    setAuthenticated(!authenticated);
   };
 
   let personsPanel;
@@ -48,7 +54,7 @@ function App() {
     personsPanel = (
       <div>
         <Persons
-          persons={persons}
+          pList={persons}
           clicked={deletePersonHandler}
           changed={nameChangeHandler}
         />
@@ -58,13 +64,22 @@ function App() {
 
   return (
     <div className={styles.App}>
-      <Cockpit
-        persons={persons}
-        toggle={togglePersonsHandler}
-        click={switchNameHandler}
-        showPerson={showPerson}
-      />
-      {personsPanel}
+      <AuthContext.Provider
+        value={{
+          authenticated,
+          login: toggleLoginHandler,
+        }}
+      >
+        <Cockpit
+          persons={persons}
+          title="My React App"
+          toggle={togglePersonsHandler}
+          click={switchNameHandler}
+          showPerson={showPerson}
+          personsLength={persons.length}
+        />
+        {personsPanel}
+      </AuthContext.Provider>
     </div>
   );
 }

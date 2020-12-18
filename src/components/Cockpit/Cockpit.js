@@ -1,9 +1,10 @@
-import { useEffect, useRef, useContext } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 
+import PropTypes from 'prop-types';
 import classes from './Cockpit.module.css';
 import AuthContext from '../../context/auth-context';
 
-const Cockpit = ({ showPersons, personsLength, title, clicked }) => {
+const Cockpit = ({ showPerson, personsLength, title, toggle }) => {
   const toggleBtnRef = useRef(null);
   const authContext = useContext(AuthContext);
 
@@ -32,7 +33,7 @@ const Cockpit = ({ showPersons, personsLength, title, clicked }) => {
 
   const assignedClasses = [];
   let btnClass = '';
-  if (showPersons) {
+  if (showPerson) {
     btnClass = classes.Red;
   }
 
@@ -51,7 +52,7 @@ const Cockpit = ({ showPersons, personsLength, title, clicked }) => {
         type="button"
         ref={toggleBtnRef}
         className={btnClass}
-        onClick={clicked}
+        onClick={toggle}
       >
         Toggle Persons
       </button>
@@ -60,6 +61,13 @@ const Cockpit = ({ showPersons, personsLength, title, clicked }) => {
       </button>
     </div>
   );
+};
+
+Cockpit.propTypes = {
+  showPerson: PropTypes.bool.isRequired,
+  personsLength: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  toggle: PropTypes.func.isRequired,
 };
 
 export default React.memo(Cockpit);

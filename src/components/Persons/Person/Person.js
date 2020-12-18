@@ -1,19 +1,39 @@
-import './Person.css';
+import { useRef, useContext } from 'react';
+import PropTypes from 'prop-types';
 
-const person = (props) => {
-  const style = {
-    '@media (min-width: 500px)': {
-      width: '450px',
-    },
-  };
+import withClass from '../../../hoc/WithClass';
+import classes from './Person.css';
+import AuthContext from '../../../context/auth-context';
+
+const person = ({ changed, name, click, age, children }) => {
+  const inputElementRef = useRef(null);
+  const authContext = useContext(AuthContext);
+
   return (
-    // <div className="Person" style={style}>
-    <div>
-      <p onClick={props.click}>I'm a person called {props.name}!</p>
-      <p>{props.children}</p>
-      <input type="text" onChange={props.change} value={props.name} />
-    </div>
+    <>
+      {authContext.authenticated ? <p>Authenticated!</p> : <p>Please log in</p>}
+
+      <p onClick={click}>
+        I'm {name} and I am {age} years old!
+      </p>
+      <p key="i2">{children}</p>
+      <input
+        key="i3"
+        // ref={(inputEl) => {this.inputElement = inputEl}}
+        ref={inputElementRef}
+        type="text"
+        onChange={changed}
+        value={name}
+      />
+    </>
   );
 };
 
-export default person;
+person.propTypes = {
+  click: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changed: PropTypes.func,
+};
+
+export default withClass(person, classes.Person);
