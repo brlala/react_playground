@@ -18,13 +18,13 @@ rules:
   react/jsx-filename-extension:
     - 1
     - extensions:
-        - .js
-        - .jsx
+      - .js
+      - .jsx
   react/no-unescaped-entities:
     - error
     - forbid:
-        - ">"
-        - "}"
+      - ">"
+      - "}"
   no-console: off
   no-restricted-syntax:
     - error
@@ -39,4 +39,13 @@ rules:
   no-unused-vars: # optionally should be removed, to enforce clean code
     - warn
   react/jsx-one-expression-per-line: off # optionally should be removed, could mess with text display
-
+  quotes:
+    - warn
+    - single
+    - avoidEscape: true
+      allowTemplateLiterals: false
+  prettier/prettier:
+    - error
+    - singleQuote: true
+    - fileInfoOptions:
+        withNodeModules: true

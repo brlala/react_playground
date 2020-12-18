@@ -1,34 +1,39 @@
-import "./App.css";
-import { useState } from "react";
-import Person from "./Person/Person";
+import './App.css';
+import { useState } from 'react';
+import Radium, { StyleRoot } from 'radium';
+import Person from './Person/Person';
 
-function App() {
+function App(border = '1px solid blue') {
   const [persons, setPersons] = useState([
-    { id: "af1", name: "Max", age: 28 },
-    { id: "af2", name: "Manu", age: 30 },
-    { id: "af3", name: "Jessie", age: 41 },
+    { id: 'af1', name: 'Max', age: 28 },
+    { id: 'af2', name: 'Manu', age: 30 },
+    { id: 'af3', name: 'Jessie', age: 41 },
   ]);
   const [showPerson, setShowPerson] = useState(false);
   const style = {
-    backgroundColor: "green",
-    color: "white",
-    font: "inherit",
-    border: "1px solid blue",
-    padding: "8px",
-    cursor: "pointer",
+    backgroundColor: 'green',
+    color: 'white',
+    font: 'inherit',
+    border,
+    padding: '8px',
+    cursor: 'pointer',
+    ':hover': {
+      backgroundColor: 'lightgreen',
+      color: 'black',
+    },
   };
 
   const switchNameHandler = (newName) => {
-    console.log("was clicked");
+    console.log('was clicked');
     setPersons([
-      { id: "af1", name: newName, age: 2 },
-      { id: "af2", name: "ManU", age: 3 },
-      { id: "af3", name: "JessiE", age: 4 },
+      { id: 'af1', name: newName, age: 2 },
+      { id: 'af2', name: 'ManU', age: 3 },
+      { id: 'af3', name: 'JessiE', age: 4 },
     ]);
   };
 
   const deletePersonHandler = (index) => {
-    console.log("delete person");
+    console.log('delete person');
     // copy the state first to make it an immutable state
     const newPersons = [...persons];
     newPersons.splice(index, 1);
@@ -64,32 +69,43 @@ function App() {
         {/* <Person name={persons[2].name} change={nameChangeHandler}>My gender: Girl</Person> */}
       </div>
     );
-    style.backgroundColor = "red";
+    style.backgroundColor = 'red';
+    style[':hover'] = {
+      backgroundColor: 'salmon',
+      color: 'black',
+    };
   }
   const classes = [];
   if (persons.length <= 2) {
-    classes.push("red");
+    classes.push('red');
   }
   if (persons.length <= 1) {
-    classes.push("bold");
+    classes.push('bold');
   }
   return (
-    <div className="App">
-      <h1>Hi, I'm a React App</h1>
-      <p className={classes.join(" ")}>This is working</p>
-      <button type="button" style={style} onClick={togglePersonsHandler}>
-        Toggle Name
-      </button>
-      <button
-        type="button"
-        style={style}
-        onClick={() => switchNameHandler("xxxxxxx")}
-      >
-        Switch Name
-      </button>
-      {personsPanel}
-    </div>
+    <StyleRoot>
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p className={classes.join(' ')}>This is working</p>
+        <button
+          key="asd"
+          type="button"
+          style={style}
+          onClick={togglePersonsHandler}
+        >
+          Toggle Name
+        </button>
+        <button
+          type="button"
+          style={style}
+          onClick={() => switchNameHandler('xxxxxxx')}
+        >
+          Switch Name
+        </button>
+        {personsPanel}
+      </div>
+    </StyleRoot>
   );
 }
 
-export default App;
+export default Radium(App);
